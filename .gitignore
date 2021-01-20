@@ -12,3 +12,4 @@
 !src/**/build/
 
 build/
+out/

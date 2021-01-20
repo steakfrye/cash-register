@@ -1,11 +1,22 @@
 apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+apply plugin: 'application'
 
-mainClassName = 'cashregister.App'
+mainClassName = 'App'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation "junit:junit:4.12"
+    testImplementation 'org.testng:testng:7.1.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'main.java.com.cashregister.App'
+        )
+    }
 }
