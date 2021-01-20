@@ -3,13 +3,14 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 apply plugin: 'application'
 
-mainClassName = 'App'
+mainClassName = 'main.java.com.cashregister.App'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation 'com.github.stefanbirkner:system-rules:1.19.0'
     testImplementation 'org.testng:testng:7.1.0'
 }
 

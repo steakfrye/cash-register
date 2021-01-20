@@ -17,72 +17,68 @@ public class Cashier {
                 cashRegister.getOnes());
     }
 
-    public String put(String twenties, String tens, String fives, String twos, String ones) {
-        cashRegister.setTwenties(cashRegister.getTwenties() + Integer.parseInt(twenties))
-                .setTens(cashRegister.getTens() + Integer.parseInt(tens))
-                .setFives(cashRegister.getFives() + Integer.parseInt(fives))
-                .setTwos(cashRegister.getTwos() + Integer.parseInt(twos))
-                .setOnes(cashRegister.getOnes() + Integer.parseInt(ones));
+    public String put(int twenties, int tens, int fives, int twos, int ones) {
+        cashRegister.setTwenties(cashRegister.getTwenties() + twenties)
+                .setTens(cashRegister.getTens() + tens)
+                .setFives(cashRegister.getFives() + fives)
+                .setTwos(cashRegister.getTwos() + twos)
+                .setOnes(cashRegister.getOnes() + ones);
 
         return show();
     }
 
-    public String take(String twenties, String tens, String fives, String twos, String ones) {
+    public String take(int twenties, int tens, int fives, int twos, int ones) {
         try {
-            cashRegister.setTwenties(subtractBills(cashRegister.getTwenties(), Integer.parseInt(twenties)))
-                    .setTens(subtractBills(cashRegister.getTens(), Integer.parseInt(tens)))
-                    .setFives(subtractBills(cashRegister.getFives(), Integer.parseInt(fives)))
-                    .setTwos(subtractBills(cashRegister.getTwos(), Integer.parseInt(twos)))
-                    .setOnes(subtractBills(cashRegister.getOnes(), Integer.parseInt(ones)));
+            cashRegister.setTwenties(subtractBills(cashRegister.getTwenties(), twenties))
+                    .setTens(subtractBills(cashRegister.getTens(), tens))
+                    .setFives(subtractBills(cashRegister.getFives(), fives))
+                    .setTwos(subtractBills(cashRegister.getTwos(), twos))
+                    .setOnes(subtractBills(cashRegister.getOnes(), ones));
         } catch (NullPointerException exception) {
             return "sorry";
         }
         return show();
     }
 
-    public String change(String change) {
-        int changeRemaining = Integer.parseInt(change);
-        int twenties = 0;
-        int tens = 0;
-        int fives = 0;
-        int twos = 0;
-        int ones = 0;
+    public String change(int change) {
+        int twentiesReturned = 0;
+        int tensReturned = 0;
+        int fivesReturned = 0;
+        int twosReturned = 0;
+        int onesReturned = 0;
 
-        if (changeRemaining < cashRegister.getTotal()) {
-            while (cashRegister.getTwenties() != 0 && changeRemaining >= 20) {
+        if (change < cashRegister.getTotal()) {
+            while (cashRegister.getTwenties() != 0 && change >= 20) {
                 cashRegister.setTwenties(cashRegister.getTwenties() - 1);
-                changeRemaining -= 20;
-                twenties += 1;
+                change -= 20;
+                twentiesReturned += 1;
             }
-            while (cashRegister.getTens() != 0 && changeRemaining >= 10) {
+            while (cashRegister.getTens() != 0 && change >= 10) {
                 cashRegister.setTens(cashRegister.getTens() - 1);
-                changeRemaining -= 10;
-                tens += 1;
+                change -= 10;
+                tensReturned += 1;
             }
-            while (cashRegister.getFives() != 0 && changeRemaining >= 5) {
+            while (cashRegister.getFives() != 0 && change >= 5) {
                 cashRegister.setFives(cashRegister.getFives() - 1);
-                changeRemaining -= 5;
-                fives += 1;
+                change -= 5;
+                fivesReturned += 1;
             }
-            while (cashRegister.getTwos() != 0 && changeRemaining >= 2) {
+            while (cashRegister.getTwos() != 0 && change >= 2) {
                 cashRegister.setTwos(cashRegister.getTwos() - 1);
-                changeRemaining -= 2;
-                twos += 1;
+                change -= 2;
+                twosReturned += 1;
             }
-            while (cashRegister.getOnes() != 0 && changeRemaining >= 1) {
+            while (cashRegister.getOnes() != 0 && change >= 1) {
                 cashRegister.setOnes(cashRegister.getOnes() - 1);
-                changeRemaining -= 1;
-                ones += 1;
+                change -= 1;
+                onesReturned += 1;
             }
-            if (changeRemaining == 0) {
-                return String.format("%s %s %s %s %s", twenties, tens, fives, twos, ones);
+
+            if (change == 0) {
+                return String.format("%s %s %s %s %s", twentiesReturned, tensReturned, fivesReturned, twosReturned, onesReturned);
             }
         }
         return "sorry";
-    }
-
-    public String quit() {
-        return "Bye";
     }
 
     private Integer subtractBills(int existingBills, int billsToBeWithdrawn) {

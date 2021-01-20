@@ -25,43 +25,34 @@ public class CashierTest {
 
     @Test
     public void testPut_assortmentOfBills_totalAndBillCountReturned() {
-        String result = cashier.put("1", "2", "3", "0", "5");
+        String result = cashier.put(1, 2, 3, 0, 5);
 
         assertEquals(result, "$103 2 2 6 4 5");
     }
 
     @Test
     public void testTake_moreBillsThanAvailable_ExpectSorry() {
-        String result = cashier.take("1", "4", "3", "0", "10");
+        String result = cashier.take(1, 4, 3, 0, 10);
         assertEquals(result, "sorry");
     }
 
     @Test
     public void testTake_validWithrawl_expectRegisterEmpty() {
-        String result = cashier.take("1", "0", "3", "4", "0");
+        String result = cashier.take(1, 0, 3, 4, 0);
         assertEquals(result, "$0 0 0 0 0 0");
     }
 
     @Test
     public void testChange_changeNotAvailable_expectSorry() {
-        String change = "11";
-        String result = cashier.change(change);
+        String result = cashier.change(11);
 
         assertEquals(result, "sorry");
     }
 
     @Test
     public void testChange_changeAvailable_expectReturnedChange() {
-        String change = "12";
-        String result = cashier.change(change);
+        String result = cashier.change(12);
 
         assertEquals(result, "0 0 2 1 0");
-    }
-
-    @Test
-    public void testQuit() {
-        String result = cashier.quit();
-
-        assertEquals(result, "Bye");
     }
 }
