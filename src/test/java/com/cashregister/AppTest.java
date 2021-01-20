@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class AppTest {
 
     @Test
-    public void main_quitArgument_expectRuns() throws Exception {
+    public void main_quitArgument_expectRuns() {
         String[] args = {"quit"};
         App.main(args);
     }

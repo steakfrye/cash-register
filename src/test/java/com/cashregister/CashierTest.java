@@ -17,36 +17,45 @@ public class CashierTest {
     }
 
     @Test
-    public void testShow() {
+    public void testShow_currentTotalAndCashNumbersReturned() {
         String result = cashier.show();
 
         assertEquals(result, "$43 1 0 3 4 0");
     }
 
     @Test
-    public void testPut() {
+    public void testPut_assortmentOfBills_totalAndBillCountReturned() {
         String result = cashier.put("1", "2", "3", "0", "5");
 
         assertEquals(result, "$103 2 2 6 4 5");
     }
 
-    @Test(expectedExceptions = {Exception.class})
-    public void testTake_moreBillsThanAvailable_ExpectException() throws Exception {
-        cashier.take("1", "4", "3", "0", "10");
+    @Test
+    public void testTake_moreBillsThanAvailable_ExpectSorry() {
+        String result = cashier.take("1", "4", "3", "0", "10");
+        assertEquals(result, "sorry");
     }
 
     @Test
-    public void testTake_validWithrawl_expectRegisterEmpty() throws Exception {
+    public void testTake_validWithrawl_expectRegisterEmpty() {
         String result = cashier.take("1", "0", "3", "4", "0");
         assertEquals(result, "$0 0 0 0 0 0");
     }
 
     @Test
-    public void testChange() {
+    public void testChange_changeNotAvailable_expectSorry() {
         String change = "11";
         String result = cashier.change(change);
 
-        assertEquals(result, "0 0 1 3 0");
+        assertEquals(result, "sorry");
+    }
+
+    @Test
+    public void testChange_changeAvailable_expectReturnedChange() {
+        String change = "12";
+        String result = cashier.change(change);
+
+        assertEquals(result, "0 0 2 1 0");
     }
 
     @Test

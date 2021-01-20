@@ -3,7 +3,7 @@ package test.java.com.cashregister;
 import main.java.com.cashregister.CashRegister;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class CashRegisterTest {
 
